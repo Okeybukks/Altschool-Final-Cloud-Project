@@ -1,8 +1,5 @@
 # PROVIDER FOR THE TERRAFORM RESOURCES.
-provider "aws" {
-  profile = "myprofile"
-  region  = var.region
-}
+provider "aws" {}
 
 # VPC RESOURCE
 module "vpc" {
@@ -23,35 +20,21 @@ resource "aws_instance" "public_server" {
   instance_type               = var.instance_type
   associate_public_ip_address = true
 
-  connection {
-    type     = "ssh"
-    user     = "ubuntu"
-    private_key = tls_private_key.pk.private_key_pem
-    host     = self.public_ip
-  }
+  user_data = <<EOF
+    #!/bin/bash
+    # sleep until instance is ready
+    until [[ -f /var/lib/cloud/instance/boot-finished ]]; do
+      sleep 1
+    done
 
-  provisioner "file" {
-    source="./packages.sh"
-    destination="/tmp/packages.sh"
-  }
+    # Install ansible
+    sudo apt-get update
 
-  provisioner "remote-exec" {
-    inline=[
-    "chmod +x /tmp/packages.sh",
-    "sudo /tmp/packages.sh"
-    ]
-  }
+    sudo apt-get install python3-pip python-dev
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo echo '${self.public_ip}' >> /etc/ansible/hosts",
-    ]
-  }
+    sudo python3 -m pip install --user ansible
+    EOF
 
-  provisioner "local-exec" {
-
-    command = "echo 'jenkins-server ansible_host=${self.public_ip}' ansible_ssh_user=ubuntu ansible_ssh_private_key_file=.aws/myKey.pem' >> ansible-folder/host-inventory"
-  }
   tags = {
     Name : "public_server"
   }
@@ -72,8 +55,14 @@ resource "tls_private_key" "pk" {
 resource "aws_key_pair" "key-pair" {
   key_name   = "myKey"
   public_key = tls_private_key.pk.public_key_openssh
+}
 
-  provisioner "local-exec" {
-    command = "echo '${tls_private_key.pk.private_key_pem}' > .aws-key/myKey.pem"
-  }
+resource "local_file" "host_ip" {
+  content  = "jenkins-server ansible_host=${aws_instance.public_server.public_ip} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=../.aws/myKey.pem"
+  filename = "../ansible/host-inventory"
+}
+
+resource "local_sensitive_file" "key" {
+  content  = tls_private_key.pk.private_key_pem
+  filename = "../.aws/myKey.pem"
 }
