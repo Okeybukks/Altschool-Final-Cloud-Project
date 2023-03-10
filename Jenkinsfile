@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     dir('deploy/kubernetes') {
-                        sh "ubectl create -f complete-demo.yaml"
+                        sh "kubectl create -f complete-demo.yaml"
 
                     }
                 }
