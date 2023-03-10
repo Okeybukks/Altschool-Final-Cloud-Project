@@ -90,12 +90,12 @@ spec:
         name: carts-db
     spec:
       containers:
-      - name: carts-db
-        image: mongo
-        ports:
+        - name: carts-db
+          image: mongo
+          ports: 
         - name: mongo
           containerPort: 27017
-        securityContext:
+      securityContext:
           capabilities:
             drop:
               - all
@@ -104,7 +104,7 @@ spec:
               - SETGID
               - SETUID
           readOnlyRootFilesystem: true
-        volumeMounts:
+      volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
       volumes:

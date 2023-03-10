@@ -20,21 +20,6 @@ resource "aws_instance" "public_server" {
   instance_type               = var.instance_type
   associate_public_ip_address = true
 
-  user_data = <<EOF
-    #!/bin/bash
-    # sleep until instance is ready
-    until [[ -f /var/lib/cloud/instance/boot-finished ]]; do
-      sleep 1
-    done
-
-    # Install ansible
-    sudo apt-get update
-
-    sudo apt-get install python3-pip python-dev
-
-    sudo python3 -m pip install --user ansible
-    EOF
-
   tags = {
     Name : "public_server"
   }
