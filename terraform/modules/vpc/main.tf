@@ -11,11 +11,11 @@ resource "aws_vpc" "main" {
 # VPC SUBNET RESOURCE
 resource "aws_subnet" "public-subnet" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.public-subnets[0]["cidr"]
-  availability_zone = var.public-subnets[0]["az"]
+  cidr_block        = var.public-subnet[0]["cidr"]
+  availability_zone = var.public-subnet[0]["az"]
 
   tags = {
-    Name = var.public-subnets[0]["tag"]
+    Name = var.public-subnet[0]["tag"]
   }
 
 }

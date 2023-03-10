@@ -168,3 +168,8 @@ override.tf.json
 terraform.rc
 
 /.aws
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/4.58.0/linux_amd64/terraform-provider-aws_v4.58.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/local/2.4.0/linux_amd64/terraform-provider-local_v2.4.0_x5
+terraform/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.4/linux_amd64/terraform-provider-tls_v4.0.4_x5
+terraform/.terraform/modules/modules.json
+terraform/.terraform.lock.hcl
