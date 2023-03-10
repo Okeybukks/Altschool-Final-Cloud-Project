@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     dir('deploy/kubernetes') {
-                        sh "kubectl apply -f complete-demo.yaml"
+                        sh "sudo kubectl apply -f complete-demo.yaml"
 
                     }
                 }
