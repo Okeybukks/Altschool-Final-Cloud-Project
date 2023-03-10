@@ -2,6 +2,8 @@
 - name: A playbook Weave Socks
   hosts: laravelserver
   become: yes
+  vars_files:
+    - vars/aws_config.yml
   tasks:
     - name: "Update Repository cache"
       apt:
@@ -99,3 +101,26 @@
         region: "{{ aws_region }}"
         format: "{{ aws_format }}"
       changed_when: false
+
+    - name: Install kubectl
+      shell: |
+        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        sudo chmod +x ./kubectl 
+        sudo mv ./kubectl /usr/local/bin
+
+    - name: Install and Setup eksctl
+      shell: |
+        curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/eksctl /usr/local/bin 
+
+    - name: Create eks cluster using eksctl
+      shell: |
+        eksctl create cluster --name altschool--region us-east-1 --nodegroup-name worker-nodes --node-type t2.micro --nodes 2
+
+    - name: Configure kubectl
+      shell: aws eks --region us-east-1 update-kubeconfig --name altschool
+
+
+
+
+
