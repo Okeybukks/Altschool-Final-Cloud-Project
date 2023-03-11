@@ -1,0 +1,21 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: altchool-cluster
+  region: us-east-1
+
+iamIdentityMappings:
+  - arn: arn:aws:iam::732887255406:role/eks-admin
+    groups:
+      - system:masters
+    username: jenkins
+    noDuplicateARNs: true # prevents shadowing of ARNs
+
+  - account: "732887255406" # account must be configured with no other options
+
+nodeGroups:
+  - name: worker-node
+    instanceType: t2.micro
+    desiredCapacity: 2
