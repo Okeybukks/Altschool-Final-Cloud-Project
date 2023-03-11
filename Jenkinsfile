@@ -11,8 +11,13 @@ pipeline {
             steps {
                 script {
                     dir('deploy/kubernetes') {
-                        sh "aws eks update-kubeconfig --name altschool-cluster"
-                        sh "kubectl create -f complete-demo.yaml"
+                        try{
+                            sh "aws eks update-kubeconfig --name altschool-cluster"
+                            sh "kubectl create -f complete-demo.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f complete-demo.yaml"
+                        }
 
                     }
                 }
