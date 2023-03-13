@@ -17,6 +17,14 @@ alerting:
 
 scrape_configs:
     - job_name: "frontend"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'frontend'
       scrape_interval: 5s
       metrics_path: 'metrics'
       static_configs:
@@ -24,6 +32,14 @@ scrape_configs:
 
     # The job name assigned to scraped metrics by default.
     - job_name: "catalogue"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'catalogue'
       # How frequently to scrape targets from this job.
       scrape_interval: 5s
       # List of labeled statically configured targets for this job.
@@ -32,16 +48,40 @@ scrape_configs:
         - targets: ['catalogue']
 
     - job_name: "payment"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'payment'
       scrape_interval: 5s
       static_configs:
         - targets: ['payment']
 
     - job_name: "user"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'user'
       scrape_interval: 5s
       static_configs:
         - targets: ['user']
 
     - job_name: "orders"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'orders'
       scrape_interval: 5s
       # The HTTP resource path on which to fetch metrics from targets.
       metrics_path: 'metrics'
@@ -49,25 +89,57 @@ scrape_configs:
         - targets: ['orders']
 
     - job_name: "cart"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'carts'
       scrape_interval: 5s
       metrics_path: 'metrics'
       static_configs:
         - targets: ['carts']
 
     - job_name: "shipping"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'shipping'
       scrape_interval: 5s
       metrics_path: 'metrics'
       static_configs:
         - targets: ['shipping']
 
     - job_name: "queue-master"
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'queue-master'
       scrape_interval: 5s
       metrics_path: 'prometheus'
       static_configs:
         - targets: ['queue-master']
 
     - job_name: 'node-exporter'
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names: ['sock-shop']
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_service_name]
+        action: keep
+        regex: 'nodeexporter'
       scrape_interval: 5s
       metrics_path: 'metrics'
       static_configs:
-        - targets: ['nodeexporter:9100']
+        - targets: ['nodeexporter:9090']
