@@ -100,14 +100,25 @@
     #     sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
     #     sudo mv /tmp/eksctl /usr/local/bin 
 
+    # - name: Install Helm(Kubernetes package manager)
+    #   shell: |
+    #     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    #     chmod 700 get_helm.sh
+    #     ./get_helm.sh
+
+    # - name: Add kube-prometheus-stack repo
+    #   shell: |
+    #     sudo helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    #     sudo helm repo update
+
+    # - name: Install helm prometheus chart
+    #   shell: |
+    #     sudo helm install prometheus prometheus-community/kube-prometheus-stack
 
     - name: Create eks cluster using eksctl
       shell: |
         eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
 
-
-    - name: Configure kubectl
-      shell: aws eks --region us-east-1 update-kubeconfig --name altschool
 
 
 
