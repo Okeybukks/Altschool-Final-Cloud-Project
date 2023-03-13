@@ -28,10 +28,10 @@ pipeline {
                 script {
                     dir('deploy/prometheus') {
                         try{
-                            sh "helm install monitoring -f prometheus.yml prometheus-community/prometheus"
+                            sh "helm install monitoring -f prometheus.yml prometheus-community/kube-prometheus-stack"
                         }
                         catch(error){
-                            sh "helm install monitoring -f prometheus.yml prometheus-community/prometheus"
+                            sh "helm install monitoring -f prometheus.yml prometheus-community/kube-prometheus-stack"
 
                             // sh "kubectl apply -f prometheus.yml"
                         }
