@@ -7,7 +7,7 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
-        stage("Deploy to EKS") {
+        stage("Deploy to Sock App") {
             steps {
                 script {
                     dir('deploy/kubernetes') {
@@ -17,6 +17,21 @@ pipeline {
                         }
                         catch(error){
                             sh "kubectl apply -f complete-demo.yaml"
+                        }
+
+                    }
+                }
+            }
+        }
+        stage("Deploy Prometheue File"){
+            steps {
+                script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f prometheus.yml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f prometheus.yml"
                         }
 
                     }
