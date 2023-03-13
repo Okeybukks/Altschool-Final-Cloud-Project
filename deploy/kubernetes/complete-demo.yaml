@@ -77,7 +77,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: cart -service-monitor
+  name: cart-service-monitor
   labels:
     release: prometheus
     app: prometheus
@@ -89,7 +89,7 @@ spec:
   selector:
     matchLabels:
       name: carts
-      
+
 ---
 apiVersion: apps/v1
 kind: Deployment
