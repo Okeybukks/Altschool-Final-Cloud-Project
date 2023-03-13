@@ -3,29 +3,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: sock-shop
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/path: "metrics"
-    prometheus.io/port: "9090"
 
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prometheus-server
-spec:
-  template:
-    spec:
-      volumes:
-      - name: prometheus-shop-sock-config
-        configMap:
-          name: prometheus-sock-shop
-      containers:
-      - name: prometheus
-        volumeMounts:
-        - name: prometheus-shop-sock-config
-          mountPath: /etc/prometheus/prometheus.yml
-          subPath: prometheus.yml
 ---         
 apiVersion: apps/v1
 kind: Deployment
