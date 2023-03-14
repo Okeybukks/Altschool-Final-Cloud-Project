@@ -23,5 +23,94 @@ pipeline {
                 }
             }
         }
+        stage("Apply the clusterRole config"){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f clusterRole.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f clusterRole.yaml"
+                        }
+
+                    }
+                }
+        }
+        stage("Deploy prometheus to kubernetes"){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f prometheus-deployment.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f prometheus-deployment.yaml"
+                        }
+
+                    }
+                }
+        }
+        stage("Deploy prometheus service to kubernetes"){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f prometheus-service.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f prometheus-service.yaml"
+                        }
+
+                    }
+                }
+        }
+        stage("Setting up Kube State Metrics on Kubernetes"){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "git clone https://github.com/devopscube/kube-state-metrics-configs.git"
+                            sh "kubectl apply -f kube-state-metrics-configs/"
+                        }
+
+                    }
+                }
+        }
+        stage("Create configmap for grafana"){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f grafana-datasource-config.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f grafana-datasource-config.yaml"
+                        }
+
+                    }
+                }
+        }
+        stage("Deploy grafana"){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f grafana-deployment.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f grafana-deployment.yaml"
+                        }
+
+                    }
+                }
+        }
+        stage("Deploy grafana service "){
+            script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f grafana-service.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f grafana-service.yaml"
+                        }
+
+                    }
+                }
+        }
     }
 }

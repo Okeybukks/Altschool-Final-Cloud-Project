@@ -46,36 +46,36 @@ data:
         # List of labeled statically configured targets for this job.
         static_configs:
           # The targets specified by the static config.
-          - targets: [${frontend-url}]
+          - targets: ['a2417470ff04a4e7f9cdc10555366465-686477968.us-east-1.elb.amazonaws.com']
 
       - job_name: "payment"
         scrape_interval: 5s
         static_configs:
-          - targets: [${frontend-url}]
+          - targets: ['a2417470ff04a4e7f9cdc10555366465-686477968.us-east-1.elb.amazonaws.com']
 
       - job_name: "user"
         scrape_interval: 5s
         static_configs:
-          - targets: [${frontend-url}]
+          - targets: ['a2417470ff04a4e7f9cdc10555366465-686477968.us-east-1.elb.amazonaws.com']
 
       - job_name: "orders"
         scrape_interval: 5s
         # The HTTP resource path on which to fetch metrics from targets.
         metrics_path: 'metrics'
         static_configs:
-          - targets: [${frontend-url}]
+          - targets: ['a2417470ff04a4e7f9cdc10555366465-686477968.us-east-1.elb.amazonaws.com']
 
       - job_name: "cart"
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: [${frontend-url}]
+          - targets: ['a2417470ff04a4e7f9cdc10555366465-686477968.us-east-1.elb.amazonaws.com']
 
       - job_name: "shipping"
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: [${frontend-url}]
+          - targets: ['a2417470ff04a4e7f9cdc10555366465-686477968.us-east-1.elb.amazonaws.com']
 
       - job_name: "queue-master"
         scrape_interval: 5s

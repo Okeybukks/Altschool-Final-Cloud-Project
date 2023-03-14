@@ -100,70 +100,38 @@
     #     sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
     #     sudo mv /tmp/eksctl /usr/local/bin 
 
-    - name: Creating Monitoring Namespace for prometheus
-      shell: |
-        kubectl create namespace monitoring
-
-    - name: copy multiple items
-      copy: 
-        src: "../deploy/prometheus/{{ item.src }}" 
-        dest: "/home/ubuntu/{{ item.dest }}"
-      loop:
-        - src: clusterRole.yaml
-          dest: clusterRole.yaml
-        - src: prometheus-config.yaml
-          dest: prometheus-config.yaml
-        - src: prometheus-deployment.yaml
-          dest: prometheus-deployment.yaml
-        - src: prometheus-service.yaml
-          dest: prometheus-service.yaml
-        - src: grafana-datasource-config.yaml
-          dest: grafana-datasource-config.yaml
-        - src: grafana-deployment.yaml
-          dest: grafana-deployment.yaml
-        - src: grafana-service.yaml
-          dest: grafana-service.yaml
-
-    - name: Apply the clusterRole config
-      shell: |
-        kubectl create -f clusterRole.yaml
-
-
-    - name: Create config map in kunernetes
-      shell: |
-        kubectl create -f prometheus-config.yaml
-
-    
-    - name: Deploy prometheus to kubernetes
-      shell: |
-        kubectl create -f prometheus-deployment.yaml
-    
-    
-    - name: Deploy prometheus service to kubernetes
-      shell: |
-        kubectl create -f prometheus-service.yaml --namespace=monitoring
-
-    - name: Setting up Kube State Metrics on Kubernetes
-      shell: |
-        git clone https://github.com/devopscube/kube-state-metrics-configs.git
-        kubectl apply -f kube-state-metrics-configs/
-
-    - name: Create configmap for grafana
-      shell: |
-        kubectl create -f grafana-datasource-config.yaml
-
-    - name: Create configmap for grafana
-      shell: |
-        kubectl create -f grafana-deployment.yaml
-
-    - name: Deploy grafana service 
-      shell: |
-        kubectl create -f grafana-service.yaml
-    
-
-    # - name: Create eks cluster using eksctl
+    # - name: Creating Monitoring Namespace for prometheus
     #   shell: |
-    #     eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
+    #     kubectl create namespace monitoring
+
+    # - name: Copy grafana and prometheus config files to remote
+    #   copy: 
+    #     src: "../deploy/prometheus/{{ item.src }}" 
+    #     dest: "/home/ubuntu/{{ item.dest }}"
+    #   loop:
+        # - src: clusterRole.yaml
+        #   dest: clusterRole.yaml
+        # - src: prometheus-config.yaml
+        #   dest: prometheus-config.yaml
+        # - src: prometheus-deployment.yaml
+        #   dest: prometheus-deployment.yaml
+        # - src: prometheus-service.yaml
+        #   dest: prometheus-service.yaml
+        # - src: grafana-datasource-config.yaml
+        #   dest: grafana-datasource-config.yaml
+        # - src: grafana-deployment.yaml
+        #   dest: grafana-deployment.yaml
+        # - src: grafana-service.yaml
+        #   dest: grafana-service.yaml
+
+    # - name: Apply the clusterRole config
+    #   shell: |
+    #     kubectl create -f clusterRole.yaml
+
+
+    - name: Create eks cluster using eksctl
+      shell: |
+        eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
 
 
 
