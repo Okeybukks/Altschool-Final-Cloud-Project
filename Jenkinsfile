@@ -10,7 +10,12 @@ pipeline {
         stage("Create monitoring namespace"){
             steps{
                 script{
-                    sh "kubectl create namespace monitoring"
+                    try{
+                        sh "kubectl create namespace monitoring"
+                    }
+                    catch(error){
+                        
+                    }
                 }
             }
         }
