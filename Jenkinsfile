@@ -24,7 +24,8 @@ pipeline {
             }
         }
         stage("Apply the clusterRole config"){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                         try{
                             sh "kubectl create -f clusterRole.yaml"
@@ -35,9 +36,11 @@ pipeline {
 
                     }
                 }
+            }
         }
         stage("Deploy prometheus to kubernetes"){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                         try{
                             sh "kubectl create -f prometheus-deployment.yaml"
@@ -48,9 +51,11 @@ pipeline {
 
                     }
                 }
+            }
         }
         stage("Deploy prometheus service to kubernetes"){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                         try{
                             sh "kubectl create -f prometheus-service.yaml"
@@ -61,18 +66,21 @@ pipeline {
 
                     }
                 }
+            }
         }
         stage("Setting up Kube State Metrics on Kubernetes"){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                             sh "git clone https://github.com/devopscube/kube-state-metrics-configs.git"
                             sh "kubectl apply -f kube-state-metrics-configs/"
-
                     }
                 }
+            }
         }
         stage("Create configmap for grafana"){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                         try{
                             sh "kubectl create -f grafana-datasource-config.yaml"
@@ -83,9 +91,11 @@ pipeline {
 
                     }
                 }
+            }
         }
         stage("Deploy grafana"){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                         try{
                             sh "kubectl create -f grafana-deployment.yaml"
@@ -96,9 +106,11 @@ pipeline {
 
                     }
                 }
+            }
         }
         stage("Deploy grafana service "){
-            script {
+            steps{
+                script {
                     dir('deploy/prometheus') {
                         try{
                             sh "kubectl create -f grafana-service.yaml"
@@ -109,6 +121,7 @@ pipeline {
 
                     }
                 }
+            }
         }
     }
 }
