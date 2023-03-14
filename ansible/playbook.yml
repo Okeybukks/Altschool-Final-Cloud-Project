@@ -124,9 +124,6 @@
         # - src: grafana-service.yaml
         #   dest: grafana-service.yaml
 
-    # - name: Apply the clusterRole config
-    #   shell: |
-    #     kubectl create -f clusterRole.yaml
 
 
     - name: Create eks cluster using eksctl

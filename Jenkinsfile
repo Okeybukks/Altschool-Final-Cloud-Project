@@ -7,6 +7,13 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
+        stage{
+            steps{
+                script{
+                    sh "kubectl create namespace monitoring"
+                }
+            }
+        }
         stage("Deploy to Sock App") {
             steps {
                 script {
