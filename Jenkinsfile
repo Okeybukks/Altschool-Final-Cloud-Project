@@ -65,10 +65,8 @@ pipeline {
         stage("Setting up Kube State Metrics on Kubernetes"){
             script {
                     dir('deploy/prometheus') {
-                        try{
                             sh "git clone https://github.com/devopscube/kube-state-metrics-configs.git"
                             sh "kubectl apply -f kube-state-metrics-configs/"
-                        }
 
                     }
                 }
