@@ -7,7 +7,7 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
-        stage{
+        stage("Create monitoring namespace"){
             steps{
                 script{
                     sh "kubectl create namespace monitoring"
