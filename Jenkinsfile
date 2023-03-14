@@ -45,6 +45,21 @@ pipeline {
                 }
             }
         }
+        stage("Deploy prometheus configuration"){
+            steps{
+                script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f prometheus-config.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f prometheus-config.yaml"
+                        }
+
+                    }
+                }
+            }
+        }
         stage("Deploy prometheus to kubernetes"){
             steps{
                 script {
