@@ -14,7 +14,7 @@ pipeline {
                         sh "kubectl create namespace monitoring"
                     }
                     catch(error){
-                        
+
                     }
                 }
             }
@@ -84,12 +84,9 @@ pipeline {
             steps{
                 script {
                     dir('deploy/prometheus') {
-                        try{
+              
                             sh "kubectl create -f prometheus-service.yaml"
-                        }
-                        catch(error){
-                            sh "kubectl apply -f prometheus-service.yaml"
-                        }
+                       
 
                     }
                 }
