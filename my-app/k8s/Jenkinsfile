@@ -1,0 +1,38 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent any
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION = "us-east-1"
+    }
+    stages {
+        stage("Create portfolio namespace"){
+            steps{
+                script{
+                    try{
+                        sh "kubectl create namespace portfolio"
+                    }
+                    catch(error){
+
+                    }
+                }
+            }
+        }
+        stage("Deploy to My-App") {
+            steps {
+                script {
+                    dir('sock-shop-app/deploy/kubernetes') {
+                        try{
+                            sh "aws eks update-kubeconfig --name altschool-cluster"
+                            sh "kubectl create -f portfolio-deployment.yml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f portfolio-deployment.yml"
+                        }
+
+                    }
+                }
+            }
+        }
+}
