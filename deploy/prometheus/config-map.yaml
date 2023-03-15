@@ -6,7 +6,7 @@ metadata:
     name: prometheus-server-conf
   namespace: monitoring
 data:
-  aws-elb: ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com
+ 
   prometheus.rules: |-
     groups:
     - name: devopscube demo alert
@@ -37,7 +37,7 @@ data:
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: [${aws-elb}]
+          - targets: ['ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com']
 
       # The job name assigned to scraped metrics by default.
       - job_name: "catalogue"
@@ -63,19 +63,19 @@ data:
         # The HTTP resource path on which to fetch metrics from targets.
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['orders']
+          - targets: ['ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com']
 
       - job_name: "cart"
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['carts']
+          - targets: ['ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com']
 
       - job_name: "shipping"
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['shipping']
+          - targets: ['ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com']
 
       - job_name: "queue-master"
         scrape_interval: 5s

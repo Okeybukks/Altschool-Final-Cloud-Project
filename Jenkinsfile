@@ -105,6 +105,36 @@ pipeline {
                 }
             }
         }
+        stage("Deploy Node Exporter  Deamonset"){
+            steps{
+                script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f daemonset.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f daemonset.yaml"
+                        }
+
+                    }
+                }
+            }
+        }
+        stage("Deploy Node Exporter Service"){
+            steps{
+                script {
+                    dir('deploy/prometheus') {
+                        try{
+                            sh "kubectl create -f node-exporter-service.yaml"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f node-exporter-service.yaml"
+                        }
+
+                    }
+                }
+            }
+        }
         stage("Create configmap for grafana"){
             steps{
                 script {
