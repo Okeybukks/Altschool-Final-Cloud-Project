@@ -21,8 +21,8 @@ data:
     global:
       scrape_interval: 5s
       evaluation_interval: 5s
-      # external_labels:
-      #   aws-elb: //ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com
+      external_labels:
+        aws-elb: ae8efc63fdf9b4ef18e3cdbffa1cc08d-1254050327.us-east-1.elb.amazonaws.com
     rule_files:
       - /etc/prometheus/prometheus.rules
     alerting:
@@ -33,11 +33,11 @@ data:
           - "alertmanager.monitoring.svc:9093"
 
     scrape_configs:
-      # - job_name: "frontend"
-      #   scrape_interval: 5s
-      #   metrics_path: 'metrics'
-      #   static_configs:
-      #     - targets: [${aws-elb}]
+      - job_name: "frontend"
+        scrape_interval: 5s
+        metrics_path: 'metrics'
+        static_configs:
+          - targets: [${aws-elb}]
 
       # # The job name assigned to scraped metrics by default.
       # - job_name: "catalogue"
