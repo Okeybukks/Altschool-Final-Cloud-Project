@@ -20,7 +20,7 @@
     #     wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
     #     sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'  
     #     sudo apt-get update 
-    #     sudo apt-get install jenkins
+    #     sudo apt-get install jenkins -y
     
     # - name: Start jenkins
     #   service:
@@ -100,35 +100,31 @@
     #     sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
     #     sudo mv /tmp/eksctl /usr/local/bin 
 
-    # - name: Creating Monitoring Namespace for prometheus
-    #   shell: |
-    #     kubectl create namespace monitoring
-
     # - name: Copy grafana and prometheus config files to remote
     #   copy: 
     #     src: "../deploy/prometheus/{{ item.src }}" 
     #     dest: "/home/ubuntu/{{ item.dest }}"
     #   loop:
-        # - src: clusterRole.yaml
-        #   dest: clusterRole.yaml
-        # - src: prometheus-config.yaml
-        #   dest: prometheus-config.yaml
-        # - src: prometheus-deployment.yaml
-        #   dest: prometheus-deployment.yaml
-        # - src: prometheus-service.yaml
-        #   dest: prometheus-service.yaml
-        # - src: grafana-datasource-config.yaml
-        #   dest: grafana-datasource-config.yaml
-        # - src: grafana-deployment.yaml
-        #   dest: grafana-deployment.yaml
-        # - src: grafana-service.yaml
-        #   dest: grafana-service.yaml
+    #     # - src: clusterRole.yaml
+    #     #   dest: clusterRole.yaml
+    #     - src: prometheus-config.yaml
+    #       dest: prometheus-config.yaml
+    #     # - src: prometheus-deployment.yaml
+    #     #   dest: prometheus-deployment.yaml
+    #     # - src: prometheus-service.yaml
+    #     #   dest: prometheus-service.yaml
+    #     # - src: grafana-datasource-config.yaml
+    #     #   dest: grafana-datasource-config.yaml
+    #     # - src: grafana-deployment.yaml
+    #     #   dest: grafana-deployment.yaml
+    #     # - src: grafana-service.yaml
+    #     #   dest: grafana-service.yaml
 
 
 
-    - name: Create eks cluster using eksctl
-      shell: |
-        eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
+    # - name: Create eks cluster using eksctl
+    #   shell: |
+    #     eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
 
 
 
