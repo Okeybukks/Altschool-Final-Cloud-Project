@@ -55,10 +55,10 @@ pipeline {
                 script {
                     dir('deploy/prometheus') {
                         try{
-                            sh "kubectl create -f prometheus-config.yaml"
+                            sh "kubectl create -f config-map.yaml"
                         }
                         catch(error){
-                            sh "kubectl apply -f prometheus-config.yaml"
+                            sh "kubectl apply -f config-map.yaml"
                         }
 
                     }
