@@ -83,10 +83,8 @@ pipeline {
         stage("Deploy prometheus service to kubernetes"){
             steps{
                 script {
-                    dir('deploy/prometheus') {
-              
+                    dir('deploy/prometheus') {            
                             sh "kubectl create -f prometheus-service.yaml"
-                       
 
                     }
                 }
@@ -96,8 +94,13 @@ pipeline {
             steps{
                 script {
                     dir('deploy/prometheus') {
+                        try{
                             sh "git clone https://github.com/devopscube/kube-state-metrics-configs.git"
                             sh "kubectl apply -f kube-state-metrics-configs/"
+                        }
+                        catch(error){
+                            sh "kubectl apply -f kube-state-metrics-configs/"
+                        }
                     }
                 }
             }
