@@ -37,7 +37,7 @@ data:
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       # The job name assigned to scraped metrics by default.
       - job_name: "catalogue"
@@ -46,36 +46,36 @@ data:
         # List of labeled statically configured targets for this job.
         static_configs:
           # The targets specified by the static config.
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       - job_name: "payment"
         scrape_interval: 5s
         static_configs:
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       - job_name: "user"
         scrape_interval: 5s
         static_configs:
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       - job_name: "orders"
         scrape_interval: 5s
         # The HTTP resource path on which to fetch metrics from targets.
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       - job_name: "cart"
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       - job_name: "shipping"
         scrape_interval: 5s
         metrics_path: 'metrics'
         static_configs:
-          - targets: ['ae625abea17b14d4dbf8b92bee931ec0-1128213145.us-east-1.elb.amazonaws.com']
+          - targets: ['https://achebeokechukwu.space']
 
       - job_name: "queue-master"
         scrape_interval: 5s
