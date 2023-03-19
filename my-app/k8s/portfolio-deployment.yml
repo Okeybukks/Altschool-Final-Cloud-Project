@@ -40,5 +40,6 @@ spec:
   selector:
     name: myapp
   ports:
-  - port: 8080
+  - port: 443
+    name: https
     targetPort: 80
