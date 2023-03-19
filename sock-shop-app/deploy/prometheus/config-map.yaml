@@ -38,7 +38,7 @@ data:
         metrics_path: 'metrics'
         scheme: 'https'
         static_configs:
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       # The job name assigned to scraped metrics by default.
       - job_name: "catalogue"
@@ -48,19 +48,19 @@ data:
         # List of labeled statically configured targets for this job.
         static_configs:
           # The targets specified by the static config.
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       - job_name: "payment"
         scrape_interval: 5s
         scheme: 'https'
         static_configs:
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       - job_name: "user"
         scrape_interval: 5s
         scheme: 'https'
         static_configs:
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       - job_name: "orders"
         scrape_interval: 5s
@@ -68,21 +68,21 @@ data:
         metrics_path: 'metrics'
         scheme: 'https'
         static_configs:
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       - job_name: "cart"
         scrape_interval: 5s
         metrics_path: 'metrics'
         scheme: 'https'
         static_configs:
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       - job_name: "shipping"
         scrape_interval: 5s
         metrics_path: 'metrics'
         scheme: 'https'
         static_configs:
-          - targets: ['https://achebeokechukwu.space']
+          - targets: ['achebeokechukwu.space']
 
       - job_name: "queue-master"
         scrape_interval: 5s
