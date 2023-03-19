@@ -4,6 +4,7 @@ metadata:
   name: prometheus-service
   namespace: monitoring
   annotations:
+
       prometheus.io/scrape: 'true'
       prometheus.io/port:   '9090'
 spec:
@@ -11,5 +12,6 @@ spec:
     app: prometheus-server
   type: LoadBalancer
   ports:
-    - port: 80
+    - port: 443
+      name: https
       targetPort: 9090
