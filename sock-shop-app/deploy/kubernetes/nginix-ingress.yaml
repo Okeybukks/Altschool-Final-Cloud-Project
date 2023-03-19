@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sock-shop-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: achebeokechukwu.space
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+              name: front-end
+              port:
+                name: http
+
+
