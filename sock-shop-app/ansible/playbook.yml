@@ -5,126 +5,104 @@
   vars_files:
     - vars/aws_config.yml
   tasks:
-    # - name: "Update Repository cache"
-    #   apt:
-    #     update_cache: true
-    #     cache_valid_time: 3600
+    - name: "Update Repository cache"
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
     
-    # - name: Install Java for jenkins
-    #   apt:
-    #     name: openjdk-11-jre-headless
-    #     state: latest
+    - name: Install Java for jenkins
+      apt:
+        name: openjdk-11-jre-headless
+        state: latest
 
-    # - name: Download jenkins apt_key
-    #   shell: |
-    #     wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-    #     sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'  
-    #     sudo apt-get update 
-    #     sudo apt-get install jenkins -y
+    - name: Download jenkins apt_key
+      shell: |
+        wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+        sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'  
+        sudo apt-get update 
+        sudo apt-get install jenkins -y
     
-    # - name: Start jenkins
-    #   service:
-    #     name: jenkins
-    #     enabled: true
-    #     state: started
+    - name: Start jenkins
+      service:
+        name: jenkins
+        enabled: true
+        state: started
 
-    # - name: Add jenkins user to sudoers
-    #   user:
-    #     name: jenkins
-    #     group: sudo
-    #     append: yes
+    - name: Add jenkins user to sudoers
+      user:
+        name: jenkins
+        group: sudo
+        append: yes
 
-    # - name: Install dependencies needed for docker
-    #   apt:
-    #     name: "{{item}}"
-    #     state: present
-    #     update_cache: yes
-    #   loop:
-    #     - apt-transport-https
-    #     - ca-certificates
-    #     - curl
-    #     - gnupg-agent
-    #     - software-properties-common
-    #     - unzip
+    - name: Install dependencies needed for docker
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+        - unzip
 
-    # - name: add GPG key for docker
-    #   apt_key:
-    #     url: https://download.docker.com/linux/ubuntu/gpg
-    #     state: present
+    - name: add GPG key for docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
-    # - name: add docker repository to apt
-    #   apt_repository:
-    #     repo: deb https://download.docker.com/linux/ubuntu bionic stable
-    #     state: present
+    - name: add docker repository to apt
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
 
-    # - name: install docker
-    #   apt:
-    #     name: "{{item}}"
-    #     state: latest
-    #     update_cache: yes
-    #   loop:
-    #     - docker-ce
-    #     - docker-ce-cli
-    #     - containerd.io
+    - name: install docker
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
 
-    # - name: check docker is active
-    #   service:
-    #     name: docker
-    #     state: started
-    #     enabled: yes
+    - name: check docker is active
+      service:
+        name: docker
+        state: started
+        enabled: yes
 
-    # - name: Install aws cli
-    #   shell: |
-    #     sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    #     sudo unzip awscliv2.zip
-    #     sudo ./aws/install
+    - name: Install aws cli
+      shell: |
+        sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        sudo unzip awscliv2.zip
+        sudo ./aws/install
 
-    # - name: Configure AWS.
-    #   shell: sudo aws configure set {{ item.key }} {{ item.value }} --profile default
-    #   no_log: True
-    #   with_dict:
-    #     aws_access_key_id: "{{ aws_access_key_id }}"
-    #     aws_secret_access_key: "{{ aws_secret_key }}"
-    #     region: "{{ aws_region }}"
-    #     format: "{{ aws_format }}"
-    #   changed_when: false
+    - name: Configure AWS.
+      shell: sudo aws configure set {{ item.key }} {{ item.value }} --profile default
+      no_log: True
+      with_dict:
+        aws_access_key_id: "{{ aws_access_key_id }}"
+        aws_secret_access_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+        format: "{{ aws_format }}"
+      changed_when: false
 
-    # - name: Install kubectl
-    #   shell: |
-    #     sudo curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-    #     sudo chmod +x ./kubectl 
-    #     sudo mv ./kubectl /usr/local/bin
+    - name: Install kubectl
+      shell: |
+        sudo curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        sudo chmod +x ./kubectl 
+        sudo mv ./kubectl /usr/local/bin
 
-    # - name: Install and Setup eksctl
-    #   shell: |
-    #     sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-    #     sudo mv /tmp/eksctl /usr/local/bin 
+    - name: Install and Setup eksctl
+      shell: |
+        sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/eksctl /usr/local/bin 
 
-    # - name: Copy grafana and prometheus config files to remote
-    #   copy: 
-    #     src: "../deploy/prometheus/{{ item.src }}" 
-    #     dest: "/home/ubuntu/{{ item.dest }}"
-    #   loop:
-    #     # - src: clusterRole.yaml
-    #     #   dest: clusterRole.yaml
-    #     - src: prometheus-config.yaml
-    #       dest: prometheus-config.yaml
-    #     # - src: prometheus-deployment.yaml
-    #     #   dest: prometheus-deployment.yaml
-    #     # - src: prometheus-service.yaml
-    #     #   dest: prometheus-service.yaml
-    #     # - src: grafana-datasource-config.yaml
-    #     #   dest: grafana-datasource-config.yaml
-    #     # - src: grafana-deployment.yaml
-    #     #   dest: grafana-deployment.yaml
-    #     # - src: grafana-service.yaml
-    #     #   dest: grafana-service.yaml
-
-
-
-    # - name: Create eks cluster using eksctl
-    #   shell: |
-    #     eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
+    - name: Create eks cluster using eksctl
+      shell: |
+        eksctl create cluster --name altschool-cluster  --region us-east-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
 
 
 
