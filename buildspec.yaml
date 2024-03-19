@@ -15,4 +15,4 @@ phases:
   build:
     commands:
       
-      - sh semgrep ci
+      - semgrep ci
