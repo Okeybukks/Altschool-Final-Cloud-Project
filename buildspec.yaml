@@ -1,0 +1,15 @@
+version: 0.2
+
+env:
+  exported-variables:
+    - $SEMGREP_APP_TOKEN
+phases:
+  install:
+    runtime-versions:
+      returntocorp/semgrep: latest
+  pre_build:
+    commands:
+      - echo Test
+  build:
+    commands:
+      - semgrep ci
