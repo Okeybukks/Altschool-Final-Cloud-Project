@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   exported-variables:
-    - $SEMGREP_APP_TOKEN
+    - SEMGREP_APP_TOKEN
 phases:
   install:
     runtime-versions:
