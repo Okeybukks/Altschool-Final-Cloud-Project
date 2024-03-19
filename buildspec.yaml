@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   secrets-manager:
-    -  SEMGREP_APP_TOKEN: "semgrep_token:SEMGREP_APP_TOKEN"
+    SEMGREP_APP_TOKEN: "semgrep_token:SEMGREP_APP_TOKEN"
 phases:
   install:
     runtime-versions:
