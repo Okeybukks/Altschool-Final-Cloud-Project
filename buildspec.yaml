@@ -6,10 +6,11 @@ env:
 phases:
   install:
     runtime-versions:
-      returntocorp/semgrep: latest
+      python: 3.8
   pre_build:
     commands:
       - echo Test
   build:
     commands:
-      - semgrep ci
+      - sh pip3 install semgrep
+      - sh semgrep ci
