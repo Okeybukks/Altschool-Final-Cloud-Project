@@ -9,9 +9,9 @@ phases:
       python: 3.8
     commands:
       - pip3 install semgrep
-  pre_build:
-    commands:
-      - echo Test
+  # pre_build:
+  #   commands:
+  #     - echo Test
   build:
     commands:
       
