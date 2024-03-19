@@ -7,10 +7,12 @@ phases:
   install:
     runtime-versions:
       python: 3.8
+    commands:
+      - pip3 install semgrep
   pre_build:
     commands:
       - echo Test
   build:
     commands:
-      - sh pip3 install semgrep
+      
       - sh semgrep ci
